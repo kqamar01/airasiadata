@@ -3,7 +3,7 @@ import pandas as pd
 import seaborn as sns
 from sklearn.naive_bayes import GaussianNB
 
-st.write("# Simple Iris Flower Prediction App")
+st.write("# Simple Iris Flower Prediction App from Qamar")
 st.write("This app predicts the **Iris flower** type!")
 
 st.sidebar.header('User Input Parameters')
