@@ -29,7 +29,9 @@ data = sns.load_dataset('iris')
 X = data.drop(['species'],axis=1)
 Y = data.species.copy()
 
+#load model
 modelGaussianIris = GaussianNB()
+#training
 modelGaussianIris.fit(X, Y)
 
 prediction = modelGaussianIris.predict(df)
