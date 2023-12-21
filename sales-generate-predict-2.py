@@ -25,7 +25,7 @@ st.subheader('User Input parameters')
 st.write(df)
 
 
-loaded_modellinear = pickle.load(open("AdvertisingRegression.h5", "rb"))
+loaded_modellinear = pickle.load(open("modellradv2.h5", "rb"))
 prediction=loaded_modellinear.predict(df)
 
 st.subheader('Prediction')
