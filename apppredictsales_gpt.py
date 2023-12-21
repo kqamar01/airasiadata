@@ -24,7 +24,6 @@ df = user_input_features()
 st.subheader('User Input parameters')
 st.write(df)
 
-
 loaded_modellinear = pickle.load(open("modellradv2.h5", "rb"))
 prediction=loaded_modellinear.predict(df)
 
@@ -32,4 +31,5 @@ st.subheader('Prediction')
 st.write(prediction)
 
 st.header('Predicted Sales')
-st.write(f'For the given budget: TV=${TV}, Radio=${Radio}, Newspaper=${Newspaper}, the predicted sales is: ${prediction:.2f}')
+st.write("hello")
+#(f'For the given budget: TV=${TV}, Radio=${Radio}, Newspaper=${Newspaper}, the predicted sales is: ${prediction:.2f}')
