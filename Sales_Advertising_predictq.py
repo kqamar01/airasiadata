@@ -4,33 +4,32 @@ import pandas as pd
 import seaborn as sns
 import pickle
 
-st.write("# Simple Sales Prediction App") # kena ada # utk first title
-st.write("This app predicts the amount of **Sales**!")
+# Page title and description
+st.write("Sales Prediction App") 
+st.write("This app predicts sales based on advertising budget.")
 
-st.sidebar.header('User Input Parameters') #sidebar utk user interact
+# Sidebar for user input
+st.sidebar.header('User Input Parameters') 
 
 def user_input_features():
-    TV = st.sidebar.slider('TV', 0.7, 296.4, 147.04) # value max , min, default
-    Radio = st.sidebar.slider('Radio', 0.0, 49.6, 23.26) #user define function utk user interaction
-    Newspaper = st.sidebar.slider('Newspaper', 0.3, 114.0, 30.55)
-    data = {'TV': TV,
-            'Radio': Radio,
-            'Newspaper': Newspaper}
-    features = pd.DataFrame(data, index=[0]) #data kena ikut susunan column features yang ditrain
+    TV = st.sidebar.slider('TV Budget', 0.7, 296.4, 147.04) 
+    Radio = st.sidebar.slider('Radio Budget', 0.0, 49.6, 23.26) 
+    Newspaper = st.sidebar.slider('Newspaper Budget', 0.3, 114.0, 30.55)
+    data = {'TV Budget': TV,
+            'Radio Budget': Radio,
+            'Newspaper Budget': Newspaper}
+    features = pd.DataFrame(data, index=[0]) 
     return features
 
-#call function
+
 df = user_input_features()
 
 st.subheader('User Input parameters')
 st.write(df)
 
+modellradv = pickle.load(open("modellradv.h5", "rb"))
 
-modelGaussianIris = pickle.load(open("AdvertisingLRmodel.h5", "rb"))
-
-
-prediction = modelGaussianIris.predict(df)
-prediction_proba = modelGaussianIris.predict_proba(df)
+prediction = modellradv.predict(df)
 
 st.subheader('Prediction')
 st.write(prediction)
