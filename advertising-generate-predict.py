@@ -1,8 +1,21 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import requests
+from io import BytesIO
 from sklearn.externals import joblib  # For older scikit-learn versions, or use 'from joblib import load'
 # For newer versions of scikit-learn, you can use 'import joblib' without the 'externals' module.
+
+# Function to download the model file from GitHub
+@st.cache  # Cache the download to avoid re-downloading on every run
+def download_model():
+    model_url = 'https://github.com/kqamar01/airasiadata/blob/827486876a87f629f4e6a5a28b9e4ff8d5ddaab2/modellradv.h5'  # Replace with your GitHub URL
+    response = requests.get(model_url)
+    model = joblib.load(BytesIO(response.content))
+    return model
+
+# Load the model
+model = download_model()
 
 # Load the trained model
 model = joblib.load('modellradv.h5')  # Load your trained model here
