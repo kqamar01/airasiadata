@@ -1,48 +1,32 @@
 import streamlit as st
 import pandas as pd
-import pickle
+import numpy as np
+from sklearn.externals import joblib  # For older scikit-learn versions, or use 'from joblib import load'
+# For newer versions of scikit-learn, you can use 'import joblib' without the 'externals' module.
 
-st.write("#Simple Sales Prediction App based on Advertising Method")
-st.write("This app predicts the **sales projection** for chosen advertisment method.")
+# Load the trained model
+model = joblib.load('modellradv.h5')  # Load your trained model here
 
-st.sidebar.header('User Input Parameters')
+# Page title and description
+st.title('Sales Prediction App')
+st.write('This app predicts sales based on advertising budget.')
 
-def user_input_features():
-    TV = st.sidebar.slider('TV', 0.7, 149.75, 296.4)
-    Radio = st.sidebar.slider('Radio', 0, 23.26, 49.6)
-    Newspaper = st.sidebar.slider('Newspaper', 0.3, 30.55, 114.0)
-    features = pd.DataFrame(data, index=[0])
-    return features
+# Sidebar for user input
+st.sidebar.header('Input Data')
 
-    data = {'TV': TV,
-            'Radio': Radio,
-            'Newspaper': Newspaper,
-            }
-    return data
+tv = st.sidebar.slider('TV Budget', min_value=0.0, max_value=1000.0, step=1.0)
+radio = st.sidebar.slider('Radio Budget', min_value=0.0, max_value=1000.0, step=1.0)
+newspaper = st.sidebar.slider('Newspaper Budget', min_value=0.0, max_value=1000.0, step=1.0)
 
-df = user_input_features()
+# Predict function using the loaded model
+def predict_sales(tv, radio, newspaper):
+    # Create a DataFrame with the user input
+    input_data = pd.DataFrame({'TV': [tv], 'Radio': [radio], 'Newspaper': [newspaper]})
+    # Make the prediction
+    prediction = model.predict(input_data)
+    return prediction[0]  # Return the predicted sales value
 
-st.subheader('User Input parameters')
-st.write(df)
-
-file_path = "modellradv.h5"
-
-try:
-    with open(file_path, "rb") as file:
-        loaded_model = pickle.load(file)
-
-    # Ensure df is a 2D array for prediction
-    input_data = pd.DataFrame(df, index=[0])
-    
-    # Add a placeholder value for the missing feature
-    input_data['MissingFeature'] = 0  # You might need to replace 0 with an appropriate value
-    
-    prediction = loaded_model.predict(input_data.values)
-    
-    st.subheader('Prediction')
-    st.write(prediction)
-
-except FileNotFoundError:
-    st.error("Model file 'modellradv.h5' not found. Please make sure the file exists.")
-except Exception as e:
-    st.error(f"An error occurred: {e}")
+if st.sidebar.button('Predict'):
+    predicted_sales = predict_sales(tv, radio, newspaper)
+    st.header('Predicted Sales')
+    st.write(f'For the given budget: TV=${tv}, Radio=${radio}, Newspaper=${newspaper}, the predicted sales is: ${predicted_sales:.2f}')
