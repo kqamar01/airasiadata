@@ -1,4 +1,4 @@
-﻿altair
+altair
 streamlit
 pandas
 seaborn
