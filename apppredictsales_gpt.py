@@ -30,6 +30,6 @@ prediction=loaded_modellinear.predict(df)
 st.subheader('Prediction')
 st.write(prediction)
 
-st.header('Predicted Sales')
+st.subheader('Predicted Sales')
 st.write("hello")
 #(f'For the given budget: TV=${TV}, Radio=${Radio}, Newspaper=${Newspaper}, the predicted sales is: ${prediction:.2f}')
