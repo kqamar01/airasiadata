@@ -31,5 +31,4 @@ st.subheader('Prediction')
 st.write(prediction)
 
 st.subheader('Predicted Sales')
-st.write("hello")
-#(f'For the given budget: TV=${TV}, Radio=${Radio}, Newspaper=${Newspaper}, the predicted sales is: ${prediction:.2f}')
+st.write(f'For the given budget: TV=${TV}, Radio=${Radio}, Newspaper=${Newspaper}, the predicted sales is: ${prediction:.2f}')
